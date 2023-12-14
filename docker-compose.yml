@@ -1,0 +1,25 @@
+version: "3"
+services:
+  mysql-server:
+    image: mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+    ports:
+      - "3306:3306"
+    networks:
+      - sanika-network
+  server-container:
+    build:
+      context: .
+      dockerfile: dockerfile
+    image: sanika-nodeform
+    ports:
+      - "5000:5000"
+    networks:
+      - sanika-network
+    depends_on:
+      - mysql-server
+
+networks:
+  prajwal-network:
+    driver: bridge
